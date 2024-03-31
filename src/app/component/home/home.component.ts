@@ -1,9 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AuthenticationService} from "../../services/authentication.service";
-import {RickandmortyService} from "../../services/rickandmorty.service";
 import {Character, GetCharacterApiResponse} from "../../models/character";
-import {Router} from "@angular/router";
-import {Select, Selector, Store} from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import {GetCharacter} from "../../action/rickandmorty.action";
 import {RickandmortyState} from "../../state/rickandmorty.state";
 import {Observable} from "rxjs";
@@ -49,8 +47,8 @@ export class HomeComponent implements OnInit{
     this.getAllCharacterInformation()
   }
 
-  addFavoriteCharacter(character:Character,item:any){
+  addFavoriteCharacter(character:Character,item:string|undefined|null){
     this.favoriteCharacter = [...this.favoriteCharacter,character]
-    localStorage.setItem(item,JSON.stringify(this.favoriteCharacter))
+    localStorage.setItem(String(item),JSON.stringify(this.favoriteCharacter))
   }
 }

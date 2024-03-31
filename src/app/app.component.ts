@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "./services/authentication.service";
+import {CharacterService} from "./services/character.service";
 
 @Component({
   selector: 'app-root',
@@ -12,13 +13,13 @@ export class AppComponent {
   user$=this.authService.currentUser$
   constructor(
     private authService: AuthenticationService,
-    private router: Router
+    private characterService:CharacterService
   ) {}
 
   logout() {
     this.authService.logout().subscribe(() => {
       localStorage.removeItem('token')
-      this.router.navigate(['/login']);
+      this.characterService.routePage('/login');
     });
   }
 }

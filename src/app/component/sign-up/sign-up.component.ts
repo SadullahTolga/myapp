@@ -4,6 +4,7 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {switchMap} from "rxjs";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {CharacterService} from "../../services/character.service";
 
 
 export function passwordsMatchValidator(): ValidatorFn {
@@ -41,7 +42,10 @@ export class SignUpComponent implements OnInit{
   get name() {
     return this.signUpForm.get('name');
   }
-  constructor(private toasterService:ToastrService,private formBuilder:FormBuilder,private authService:AuthenticationService,private router:Router) {
+  constructor(private toasterService:ToastrService,
+              private formBuilder:FormBuilder,
+              private authService:AuthenticationService,
+              private characterService:CharacterService) {
   }
   ngOnInit(): void {
     this.buildForm()
@@ -67,10 +71,9 @@ export class SignUpComponent implements OnInit{
 
     this.authService
       .signUp(email, password)
-      .pipe()
-      .subscribe(() => {
+      .pipe().subscribe(() => {
           this.toasterService.success('Sign in is success')
-          this.router.navigate(['/home']);
+          this.characterService.routePage('/home')
       });
   }
 }

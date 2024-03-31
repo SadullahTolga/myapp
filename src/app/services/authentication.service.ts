@@ -12,10 +12,14 @@ export class AuthenticationService {
   constructor(private auth:Auth,private toasterService:ToastrService) { }
   login(userName:any,password:any):Observable<any>{
    return  from(signInWithEmailAndPassword(this.auth,userName,password)).
-   pipe(map(async response => {
-     const idTokenResult = await response.user.getIdTokenResult();
-     this.token = !response.user.isAnonymous ? idTokenResult.token : null;
-     localStorage.setItem('token',idTokenResult.token)
+   pipe(map( response => {
+     const idTokenResult =  response.user.getIdTokenResult();
+     this.token = !response.user.isAnonymous ? idTokenResult.then(function(val)  {
+       localStorage.setItem('token',val.token)
+       console.log(val)
+       return !!val.token
+     }) : null
+     return !!this.token
     }),catchError((err, caught) => {
       this.toasterService.error('Invalid mail or password!')
        return EMPTY;

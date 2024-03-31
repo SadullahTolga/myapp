@@ -32,9 +32,9 @@ episode:episode$|async
         class="mb-2 mt-2"
         mat-raised-button
         color="primary"
-        (click)="characterService.backToHomePage()"
+        (click)="characterService.routePage('/home')"
       >
-        Back to Home Page</button>
+        <mat-icon>home</mat-icon></button>
       </div>
   </div>
 <mat-menu #episode="matMenu">

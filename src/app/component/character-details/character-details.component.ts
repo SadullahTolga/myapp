@@ -32,7 +32,7 @@ export class CharacterDetailsComponent implements OnInit{
   }
  private characterDetails(){
     const characterId = this.route.snapshot.paramMap.get('id')
-   this.store.dispatch(new CharacterDetail(characterId))
+   this.store.dispatch(new CharacterDetail(String(characterId)))
 
   }
 

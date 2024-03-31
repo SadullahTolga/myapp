@@ -1,6 +1,6 @@
 <ng-container *ngIf="user$ | async as user">
 <div *ngIf="favoriteCharacter?.length ; else noResult"  class="container">
-  <div class="row">
+  <div class="row center">
     <div *ngFor="let item of favoriteCharacter | paginate:{itemsPerPage:tableSize,currentPage:page,totalItems:count};let i=index" class="col-md-3">
       <img
         width="300"
@@ -24,7 +24,7 @@
               type="submit"
               mat-raised-button
               color="primary"
-              (click)="characterService.characterDetails(item.id)"
+              (click)="characterService.routePage('/details',item.id)"
             >
               Details this character
             </button>
@@ -49,6 +49,15 @@
         (pageChange)="onTableDataChange($event)"
       ></pagination-controls>
     </div>
+  </div>
+  <div class="center">
+    <button
+      class="mb-2 mt-2 text-center "
+      mat-raised-button
+      color="primary"
+      (click)="characterService.routePage('home')"
+    >
+      <mat-icon>home</mat-icon></button>
   </div>
 </ng-container>
 

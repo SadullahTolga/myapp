@@ -1,7 +1,19 @@
 mat-toolbar{
   justify-content: space-between;
+  font-family: "Times New Roman" !important;
 }
 
 .content{
   padding: 32px;
+}
+div{
+  font-family: "Times New Roman";
+}
+
+mat-menu{
+  font-family: "Times New Roman" !important;
+}
+
+button{
+  font-family: "Times New Roman" !important;
 }

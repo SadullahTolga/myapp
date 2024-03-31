@@ -24,7 +24,6 @@
       <img
         width="300"
         height="300"
-        class="profile-image-toolbar"
         [src]=item.image
       />
       <div class="container mt-2">
@@ -32,22 +31,23 @@
               <li><b>Name:</b>{{item.name}}</li>
               <li><b>Species:</b>{{item.species}}</li>
               <li><b>Gender:</b>{{ item.gender }}</li>
+              <li><b>Status:</b>{{ item.status }}</li>
             </ol>
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-lg-9">
+          <div class="col-lg-6">
             <button
               class="mb-2"
               type="submit"
               mat-raised-button
               color="primary"
-              (click)="characterService.characterDetails(item.id)"
+              (click)="characterService.routePage('/detail',item.id)"
             >
-              Details this character
+              Details
             </button>
           </div>
-          <div class="col-lg-3 mb-2">
+          <div class="col-lg-6 mb-2">
             <button
               mat-raised-button
               color="primary"

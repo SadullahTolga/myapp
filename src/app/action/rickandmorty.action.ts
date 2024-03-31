@@ -12,6 +12,6 @@ export class GetCharacter{
 
 export class CharacterDetail {
   static readonly type = '[Character Detail] CharacterDetail';
-  constructor(public payload: any) {
+  constructor(public payload: string|null) {
   }
 }
