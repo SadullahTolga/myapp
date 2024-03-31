@@ -1,0 +1,45 @@
+<div *ngIf="{character:character$ |async ,
+episode:episode$|async
+} as data " class="center">
+  <div  class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <img
+          width="300"
+          height="300"
+          class="profile-image-toolbar images"
+          [src]="data.character?.image"
+        />
+    </div>
+      <div class="col-md-4">
+        <div class="center information">
+          <ol>
+            <li><b>Name:</b>{{data.character?.name}}</li>
+            <li><b>Species:</b>{{data.character?.species}}</li>
+            <li><b>Gender:</b>{{ data.character?.gender }}</li>
+            <li><b>Location:</b>{{ data.character?.location?.name }}</li>
+            <li><b>Origin:</b>{{ data.character?.origin?.name }}</li>
+            <li><b>Status:</b>{{ data.character?.status }}</li>
+            <li><b>Created:</b>{{ data.character?.created |date }}</li>
+            <li><p>This character appeared in {{data.character?.episode?.length}} episodes.</p></li>
+            <li><button mat-button [matMenuTriggerFor]="episode">
+              Click for episode information
+            </button></li>
+          </ol>
+        </div>
+      </div>
+      <button
+        class="mb-2 mt-2"
+        mat-raised-button
+        color="primary"
+        (click)="characterService.backToHomePage()"
+      >
+        Back to Home Page</button>
+      </div>
+  </div>
+<mat-menu #episode="matMenu">
+  <button *ngFor="let item of data?.episode" mat-menu-item routerLink="/profile">
+    Episode - {{item}}
+  </button>
+</mat-menu>
+</div>

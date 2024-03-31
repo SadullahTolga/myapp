@@ -1,0 +1,57 @@
+<ng-container *ngIf="user$ | async as user">
+<div *ngIf="favoriteCharacter?.length ; else noResult"  class="container">
+  <div class="row">
+    <div *ngFor="let item of favoriteCharacter | paginate:{itemsPerPage:tableSize,currentPage:page,totalItems:count};let i=index" class="col-md-3">
+      <img
+        width="300"
+        height="300"
+        class="profile-image-toolbar"
+        [src]=item.image
+      />
+      <div class="container mt-2">
+
+        <ol>
+          <li><b>Name:</b>{{item.name}}</li>
+          <li><b>Species:</b>{{item.species}}</li>
+          <li><b>Gender:</b>{{ item.gender }}</li>
+        </ol>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9">
+            <button
+              class="mb-2"
+              type="submit"
+              mat-raised-button
+              color="primary"
+              (click)="characterService.characterDetails(item.id)"
+            >
+              Details this character
+            </button>
+          </div>
+          <div class="col-md-3">
+            <button
+              (click)="removeFromFavorite(item.id,user.email)"
+              mat-raised-button
+              color="primary"
+            >
+              <mat-icon>delete</mat-icon></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+    <div  class="center">
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)"
+      ></pagination-controls>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #noResult>
+  <h1>You dont have any favorite character!</h1>
+</ng-template>

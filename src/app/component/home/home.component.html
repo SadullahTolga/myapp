@@ -1,0 +1,70 @@
+<ng-container  *ngIf="{user:user$ |async ,character:character$ |async} as data ">
+  <h1>Welcome to the home page, {{data.user?.email}}! You can see all characters in below</h1>
+
+<div class="input-group input-group-sm mb-3">
+  <div class="input-group-prepend">
+  </div>
+  <input
+    type="text"
+    class="form-control"
+    aria-label="Sizing example input"
+    aria-describedby="inputGroup-sizing-sm"
+    placeholder="Search character name , species , gender or status"
+    [(ngModel)]="filterValue"
+  >
+</div>
+
+<div  class="container">
+  <div class="row">
+    <div
+      *ngFor="let item of data?.character?.results! |
+      paginate:{itemsPerPage:tableSize,currentPage:page,totalItems:count}|
+      filter:filterValue
+      ;let i=index" class="col-lg-3">
+      <img
+        width="300"
+        height="300"
+        class="profile-image-toolbar"
+        [src]=item.image
+      />
+      <div class="container mt-2">
+            <ol>
+              <li><b>Name:</b>{{item.name}}</li>
+              <li><b>Species:</b>{{item.species}}</li>
+              <li><b>Gender:</b>{{ item.gender }}</li>
+            </ol>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9">
+            <button
+              class="mb-2"
+              type="submit"
+              mat-raised-button
+              color="primary"
+              (click)="characterService.characterDetails(item.id)"
+            >
+              Details this character
+            </button>
+          </div>
+          <div class="col-lg-3 mb-2">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="addFavoriteCharacter(item,data.user?.email)"
+            >
+              <mat-icon>thumb_up</mat-icon></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="center">
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)"
+      ></pagination-controls>
+    </div>
+  </div>
+</div>
+</ng-container>
